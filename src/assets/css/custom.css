@@ -1,0 +1,96 @@
+.maincontent{
+  margin: 0 123px;
+}
+.navcontainer{
+  margin: 0 100px;
+}
+.footlink{
+  text-decoration: none !important;
+}
+.footlink:hover{
+  color: #384897;
+}
+.menuButton{
+  display: none !important;
+}
+.logobrand{
+  color: white;
+}
+.logobrand:hover{
+  color: white;
+  text-decoration: none;
+}
+.menuitems{
+  margin-left: 5%;
+}
+.profileImage{
+  border-radius: 50%;
+}
+.profile-card{
+  width: 70%;
+  padding: 15px;
+  box-shadow: 3px 3px 15px #888888;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: inherit;
+}
+
+li {
+  float: left;
+}
+
+li .navlink {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+li .navlink:hover {
+  background-color: #384897;
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .navcontainer{
+    margin: 0;
+  }
+  .menuButton{
+    display: block !important;
+  }
+  .menuitems{
+    display: none !important;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .navcontainer{
+    margin: 0;
+  }
+  .menuButton{
+    display: block !important;
+  }
+  .menuitems{
+    display: none !important;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .navcontainer{
+    margin: 0;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+}
+
+/* Extra large devices (large deskto */
