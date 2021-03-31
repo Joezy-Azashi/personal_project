@@ -22,8 +22,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import clsx from 'clsx';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Api from '../services/Api';
+import Dialog from '@material-ui/core/Dialog';
 import * as auth from '../services/auth';
+import Pageloader from '../Components/Pageloader';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -53,6 +54,12 @@ const useStyles = makeStyles((theme) => ({
 
 function Login(){
     const classes = useStyles();
+
+    const [open, setOpen] = React.useState(false);
+    
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     const [alert, setAlert] = useState({
       open: false,
@@ -90,11 +97,11 @@ function Login(){
 
     const log = (e) => {
         e.preventDefault()
+        
         const logDetails = {
             email,
             password: passvalue.password
         }
-        console.log(logDetails)
         if(email == '' || passvalue.password == ''){
           setAlert({
             open: true,
@@ -103,22 +110,45 @@ function Login(){
         })
           closeAlert()
         }else{
+          setOpen(true)
         auth.loginUser(logDetails)
         .then((response) => {
-            setAlert({
-              open: true,
-              message: 'Sign up successfull',
-              severity: 'success'
-          })
-          console.log(response)
-            window.location.assign('/home')
-        }).catch((error) => {
+          setOpen(false)
           setAlert({
             open: true,
-            message: 'Login unsuccessfull, try again',
-            severity: 'error'
+            message: 'Login successfull',
+            severity: 'success'
         })
-        closeAlert()
+          setTimeout(() =>{
+            window.location.assign('/home')
+          }, 1000)
+            
+        }).catch((error) => {
+          console.log("ttt", error.message)
+          setOpen(false)
+          if(error.message === "Request failed with status code 401"){
+            setAlert({
+              open: true,
+              message: 'No active account found with this credentials',
+              severity: 'error'
+          })
+          closeAlert()
+          }else if(error.message === "Network Error"){
+            setAlert({
+              open: true,
+              message: 'Network Error',
+              severity: 'error'
+          })
+          closeAlert()
+          }
+          else{
+            setAlert({
+              open: true,
+              message: 'Login unsuccessfull, try again',
+              severity: 'error'
+          })
+          closeAlert()
+          }
         })
       }
     }
@@ -160,6 +190,7 @@ function Login(){
                 </div>
         <form className={classes.form} onSubmit={log} noValidate>
           <TextField
+            type="email"
             variant="outlined"
             margin="normal"
             required
@@ -198,6 +229,7 @@ function Login(){
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
+            id="rememberMe"
           />
           <Button
             type="submit"
@@ -222,6 +254,17 @@ function Login(){
           </Grid>
         </form>
       </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        maxWidth="xs"
+        fullWidth
+        disableBackdropClick
+      >
+        <Pageloader/>
+      </Dialog>
     </Container>
     )
 }

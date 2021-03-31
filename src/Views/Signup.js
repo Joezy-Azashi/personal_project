@@ -21,6 +21,8 @@ import FormControl from '@material-ui/core/FormControl';
 import clsx from 'clsx';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Api from '../services/Api';
+import Pageloader from '../Components/Pageloader';
+import Dialog from '@material-ui/core/Dialog';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -50,6 +52,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup() {
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const [alert, setAlert] = useState({
     open: false,
@@ -113,7 +121,7 @@ const closeAlert = () => {
               severity: 'error'
           })
             closeAlert()
-        } else if(email =='' || passvalue.password =='' || conpassvalue.confirm_password == ''){
+        } else if(email ==='' || passvalue.password ==='' || conpassvalue.confirm_password === ''){
           setAlert({
             open: true,
             message: 'Email, Password & Confirm Password fields cannot be empty',
@@ -121,22 +129,45 @@ const closeAlert = () => {
         })
           closeAlert()
         }else{
+          setOpen(true)
         const signupPost = await Api().post('/signup/', signupdetails)
         .then((response) => {
+          setOpen(false)
           setAlert({
             open: true,
             message: 'Sign up successfull',
             severity: 'success'
         })
-            window.location.assign('/check-email')
+            // setTimeout(() => {
+            //   window.location.assign('/check-email')
+            // },1000)
+            
         })
         .catch((error) => {
-          setAlert({
-            open: true,
-            message: 'Sign up not successfull, try again',
-            severity: 'error'
-        })
-        closeAlert()
+          console.log("test",error.message)
+          setOpen(false)
+          if(error.message === "Request failed with status code 400"){
+            setAlert({
+              open: true,
+              message: 'This email has been signed up already',
+              severity: 'error'
+          })
+          closeAlert()
+          }else if(error.message === "Network Error"){
+            setAlert({
+              open: true,
+              message: 'OOPS! please check your internet connection',
+              severity: 'error'
+          })
+          closeAlert()
+          }else{
+            setAlert({
+              open: true,
+              message: 'Sign up not successfull, try again',
+              severity: 'error'
+          })
+          closeAlert()
+          }
         })
       }
     }
@@ -214,20 +245,6 @@ const closeAlert = () => {
             />
             </FormControl>
 
-          {/* <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            value={confirm_password}
-            name="confirm_password"
-            label="Confirm Password"
-            type="password"
-            id="confirm_password"
-            autoComplete="confirm-password"
-            onChange={(e) => {setConfirm_password(e.target.value)}}
-          /> */}
-
 <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined" fullWidth>
           <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
             <OutlinedInput
@@ -268,6 +285,17 @@ const closeAlert = () => {
           </Grid>
         </form>
       </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        maxWidth="xs"
+        fullWidth
+        disableBackdropClick
+      >
+        <Pageloader/>
+      </Dialog>
     </Container>
   );
 }

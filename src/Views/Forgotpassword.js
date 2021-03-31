@@ -6,8 +6,13 @@ import TextField from '@material-ui/core/TextField';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { Alert } from '@material-ui/lab';
 import Container from '@material-ui/core/Container';
+import CloseIcon from '@material-ui/icons/Close';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
 import Api from '../services/Api';
+import { validEmail } from '../services/validation'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -36,17 +41,56 @@ function Forgotpassword(){
     const classes = useStyles();
 
     const[email, setEmail] = useState('')
+    const [alert, setAlert] = useState({
+      open: false,
+      message: '',
+      severity: 'success'
+  })
+
+  const [open, setOpen] = React.useState(false);
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+  const closeAlert = () => {
+    setTimeout(() => {
+        setAlert({
+            open: false,
+            message: '',
+            severity: ''
+        })
+    }, 4000)
+  }
 
     const forgot = async (e) => {
       e.preventDefault()
       const forgotdetails = {email}
-      console.log(forgotdetails)
-      const forgotPost = await Api().post('/forgot-password/', forgotdetails)
+        setOpen(true)
+        if ((validEmail(email)) !== true) 
+        return(
+          setAlert({
+            open: true,
+            message: 'Email format not valid',
+            severity: 'error'
+        })
+        )
+        const forgotPost = await Api().post('/forgot-password/', forgotdetails)
       .then((response) => {
-
+        setOpen(false)
+        setAlert({
+          open: true,
+          message: 'Reset password link has been sent to your email',
+          severity: 'success'
+      })
+      closeAlert()
+      setTimeout(() => {
+        window.location.assign('/')
+      }, 3000)
       }).catch((error) => {
 
       })
+      
     }
 
     return(
@@ -59,6 +103,31 @@ function Forgotpassword(){
         <Typography component="h1" variant="h5">
           Forgot Password
         </Typography>
+        <div>
+                    <Collapse in={alert.open}>
+                    <Alert
+                        severity={`${alert.severity}`}
+                        action={
+                            <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={() => {
+                                    setAlert({
+                                        open: false,
+                                        message: '',
+                                        severity: ''
+                                    });
+                                }}
+                            >
+                                <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                        }
+                    >
+                        {alert.message}
+                    </Alert>
+                    </Collapse>
+                </div>
         <form className={classes.form} onSubmit={forgot} noValidate>
           <TextField
             variant="outlined"

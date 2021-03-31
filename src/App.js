@@ -1,5 +1,7 @@
 import './assets/css/custom.css';
-import { BrowserRouter, Switch, Route} from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
+import React, {createContext, useContext, useEffect, useState} from "react";
+import { isLoggedIn } from './services/auth'
 import Signup from '../src/Views/Signup'
 import Login from '../src/Views/Login'
 import Forgotpassword from '../src/Views/Forgotpassword'
@@ -13,11 +15,12 @@ import Layout from './Components/Layout';
 function App() {
   return (
     <div className="App">
+      <ProvideAuth>
       <BrowserRouter>
         <Switch>
-          <Route exact={true} path={"/"}>
+          <LoginRoute exact={true} path={"/"}>
             <Login/>
-          </Route>
+          </LoginRoute>
           <Route path={"/signup"}>
             <Signup/>
           </Route>
@@ -27,9 +30,9 @@ function App() {
           <Route path={"/forgotpassword"}>
             <Forgotpassword/>
           </Route>
-          <Route path={'/home'}>
+          <PrivateRoute path={'/home'}>
             <Layout page={<Home/>}/>
-          </Route>
+          </PrivateRoute>
           <Route path={'/contact'}>
             <Layout page={<Contact/>}/>
           </Route>
@@ -41,8 +44,65 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
+      </ProvideAuth>
     </div>
   );
 }
 
 export default App;
+
+function PrivateRoute({ children, ...rest }) {
+  let auth = useAuth();
+  return (
+      <Route
+          {...rest}
+          render={({ location }) =>
+              auth ? (
+                  children
+              ) : (
+                  <Redirect
+                      to={{
+                          pathname: "/",
+                          state: { from: location }
+                      }}
+                  />
+              )
+          }
+      />
+  );
+}
+function LoginRoute({ children, ...rest }) {
+  let auth = useAuth();
+  return (
+      <Route
+          {...rest}
+          render={({ location }) =>
+              auth ? (
+                      <Redirect
+                          to={{
+                              pathname: "/",
+                              state: { from: location }
+                          }}
+                      />
+              ) : (
+                  children
+              )
+          }
+      />
+  );
+}
+
+const authContext = createContext();
+
+function ProvideAuth({ children }) {
+  const auth = isLoggedIn();
+  return (
+      <authContext.Provider value={auth}>
+          {children}
+      </authContext.Provider>
+  );
+}
+
+function useAuth() {
+  return useContext(authContext);
+}

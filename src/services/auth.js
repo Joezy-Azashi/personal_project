@@ -30,6 +30,10 @@ export function setAuthToken (access) {
 export function setCurrentUser (data) {
     Cookies.set(CURRENT_USER, JSON.stringify(data))
 }
+
+export function getCurrentUser () {
+    return JSON.parse(Cookies.get(CURRENT_USER))
+}
 export function clearAuthToken(){
     axios.defaults.headers.common.Authorization = ''
     return Cookies.remove(AUTH_TOKEN_KEY)
@@ -39,4 +43,11 @@ export function clearCurrentUser(){
 }
 export function logoutUser(){
     clearAuthToken(); clearCurrentUser()
+}
+export function getAuthToken () {
+    return Cookies.get(AUTH_TOKEN_KEY)
+}
+export function isLoggedIn () {
+    const authToken = getAuthToken()
+    return !!authToken
 }
