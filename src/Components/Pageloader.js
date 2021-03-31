@@ -4,8 +4,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 function Pageloader(){
     return(
-        <DialogContent style={{height: "150px"}}>
-            <div style={{ marginTop: "55px", marginLeft: "190px"}}>
+        <DialogContent style={{padding: "40px"}}>
+            <div className="row justify-content-center">
                 <HashLoader size={70} color="#3f51b5" loading/>
             </div>
         </DialogContent>

@@ -12,6 +12,8 @@ import {NavLink} from 'react-router-dom'
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import PersonIcon from '@material-ui/icons/Person';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { logoutUser } from '../services/auth';
 
@@ -76,6 +78,14 @@ function Navbar({page}){
     handleMobileMenuClose();
   };
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const logUserOut = () => {
     logoutUser()
     window.location.assign('/')
@@ -131,6 +141,20 @@ function Navbar({page}){
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
+      <NavLink to={'/profile'} style={{textDecoration: "none", color: "inherit"}}>
+      <MenuItem>
+      <IconButton color="inherit" className="mb-3">
+            <PersonIcon/>
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+      </NavLink>
+      <MenuItem onClick={logUserOut}>
+      <IconButton color="inherit" className="mb-3">
+        <MeetingRoomIcon/>
+        </IconButton>
+        <p>Logout</p>
+      </MenuItem>
     </Menu>
   );
 
@@ -144,6 +168,7 @@ function Navbar({page}){
               className="menuButton"
               color="inherit"
               aria-label="open drawer"
+              onClick={handleClick}
             >
               <MenuIcon />
             </IconButton>

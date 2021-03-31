@@ -138,9 +138,9 @@ const closeAlert = () => {
             message: 'Sign up successfull',
             severity: 'success'
         })
-            // setTimeout(() => {
-            //   window.location.assign('/check-email')
-            // },1000)
+            setTimeout(() => {
+              window.location.assign('/check-email')
+            },1000)
             
         })
         .catch((error) => {

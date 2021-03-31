@@ -8,11 +8,6 @@ import Api from '../services/Api'
 import { getCurrentUser } from '../services/auth'
 
 function Profile() {
-
-    const [username, setUsername] = useState()
-    const [Phone_number, setPhone_number] = useState()
-    const [location, setLocation] = useState()
-    const [description, setDescription] = useState()
     const [profile, setProfile] = useState()
     const [useData, setuseData] = useState(getCurrentUser())
     const [open, setOpen] = React.useState(false);
@@ -26,12 +21,44 @@ function Profile() {
         setOpen(false);
       };
 
+      const [alert, setAlert] = useState({
+        open: false,
+        message: '',
+        severity: 'success'
+    })
+    
+    const closeAlert = () => {
+      setTimeout(() => {
+          setAlert({
+              open: false,
+              message: '',
+              severity: ''
+          })
+      }, 4000)
+    }
+
     const id = useData.id
 
     const profiledata = async () => {
         const result = await Api().get(`/profile/${id}/`)
         setProfile(result.data)
         setProfiletopass(result.data)
+
+        // .then((response) => {
+        //     setAlert({
+        //         open: true,
+        //         message: 'Profile updated successfully',
+        //         severity: 'success'
+        //     })
+        //     closeAlert()
+        // }).catch((error) => {
+        //     setAlert({
+        //         open: true,
+        //         message: 'Profile updated not successfull, try again',
+        //         severity: 'error'
+        //     })
+        //     closeAlert()
+        // })
     }
 
     useEffect(() => {
@@ -52,7 +79,7 @@ function Profile() {
                     color="primary"
                     onClick={() =>{
                         handleClickOpen()
-                        setProfiletopass(profile)
+                        setProfiletopass(profiletopass)
                     }}
                     >
                         <strong>Edit</strong>
@@ -62,7 +89,7 @@ function Profile() {
             <div className="row">
                 <div className="col-md-3 col-lg-3 mb-3">
                     <div className="row justify-content-center">
-                            <img src="images/lk.jpg"
+                            <img src="/images/LK.jpg"
                             className="profileImage"
                             width={300}
                             height={300}
