@@ -26,16 +26,6 @@ function Profile() {
         message: '',
         severity: 'success'
     })
-    
-    const closeAlert = () => {
-      setTimeout(() => {
-          setAlert({
-              open: false,
-              message: '',
-              severity: ''
-          })
-      }, 4000)
-    }
 
     const id = useData.id
 
@@ -43,22 +33,6 @@ function Profile() {
         const result = await Api().get(`/profile/${id}/`)
         setProfile(result.data)
         setProfiletopass(result.data)
-
-        // .then((response) => {
-        //     setAlert({
-        //         open: true,
-        //         message: 'Profile updated successfully',
-        //         severity: 'success'
-        //     })
-        //     closeAlert()
-        // }).catch((error) => {
-        //     setAlert({
-        //         open: true,
-        //         message: 'Profile updated not successfull, try again',
-        //         severity: 'error'
-        //     })
-        //     closeAlert()
-        // })
     }
 
     useEffect(() => {
@@ -88,11 +62,11 @@ function Profile() {
             </div>
             <div className="row">
                 <div className="col-md-3 col-lg-3 mb-3">
-                    <div className="row justify-content-center">
+                    <div>
                             <img src="/images/LK.jpg"
                             className="profileImage"
-                            width={300}
-                            height={300}
+                            width="100%"
+                            height="auto"
                             alt="picture"
                             />
                     </div>

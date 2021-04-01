@@ -18,8 +18,6 @@ function Editprofile({profiletopass,handleClose}) {
     const [Phone_number, setPhone_number] = useState()
     const [location, setLocation] = useState()
     const [description, setDescription] = useState()
-    const [profile, setProfile] = useState()
-    const [pro, setPro] = useState()
     const [useData, setUseData] = useState(getCurrentUser())
 
     const id = useData.id
@@ -45,11 +43,11 @@ function Editprofile({profiletopass,handleClose}) {
       const editprofile = async (e) => {
           e.preventDefault()
         const profiledetails = {
-            id: useData.id,
-            username: pro?.username === '' ? pro?.username : username,
-            Phone_number: pro?.Phone_number === '' ? pro?.Phone_number : Phone_number,
-            location: pro?.location === '' ? pro?.location : location,
-            description: pro?.description === '' ? pro?.description : description
+            id: id,
+            username: profiletopass?.username === '' ? profiletopass?.username : username,
+            Phone_number: profiletopass?.Phone_number === '' ? profiletopass?.Phone_number : Phone_number,
+            location: profiletopass?.location === '' ? profiletopass?.location : location,
+            description: profiletopass?.description === '' ? profiletopass?.description : description
         }
         console.log("profiledetails", profiledetails)
         setOpen(true)
@@ -86,12 +84,12 @@ function Editprofile({profiletopass,handleClose}) {
             <DialogTitle id="alert-dialog-title">{"Edit Profile"}</DialogTitle>
             <form onSubmit={editprofile}>
                 <div className="row justify-content-center">
-                    <img src="/images/LK.jpg"
-                            className="profileImage"
-                            width={200}
-                            height={200}
-                            alt="picture"
-                            />
+                        <img src="/images/LK.jpg"
+                                className="profileImage"
+                                width="100%"
+                                height="auto"
+                                alt="picture"
+                                />
                 </div>
                 <div className="row">
                     <div className="col-md-12">

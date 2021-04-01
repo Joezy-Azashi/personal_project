@@ -106,11 +106,25 @@ function Navbar({page}){
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <NavLink to={'/profile'} style={{textDecoration: "none", color: "inherit"}}>
-        <MenuItem onClick={handleMenuClose}> Profile</MenuItem>
-      </NavLink>
-      
-        <MenuItem onClick={logUserOut}>Logout</MenuItem>
+        <div className="menu-desktop">
+          <NavLink to={'/profile'} style={{textDecoration: "none", color: "inherit"}}>
+            <MenuItem onClick={handleMenuClose}> Profile</MenuItem>
+          </NavLink>
+          
+            <MenuItem onClick={logUserOut}>Logout</MenuItem>
+        </div>
+        <div className="menu-mobile">
+          <NavLink to={'/home'} style={{textDecoration: "none", color: "inherit"}}>
+            <MenuItem onClick={handleMenuClose}> Home</MenuItem>
+          </NavLink>
+          
+          <NavLink to={'/contact'} style={{textDecoration: "none", color: "inherit"}}>
+            <MenuItem onClick={handleMenuClose}> Contact</MenuItem>
+          </NavLink>
+          <NavLink to={'/about'} style={{textDecoration: "none", color: "inherit"}}>
+            <MenuItem onClick={handleMenuClose}> About</MenuItem>
+          </NavLink>
+        </div>
     </Menu>
   );
 
@@ -174,14 +188,14 @@ function Navbar({page}){
             </IconButton>
             <NavLink className="logobrand" to='/home'>
             <Typography className={classes.title} variant="h6" noWrap>
-              AZASHI
+              <strong>AZASHI</strong>
             </Typography>
             </NavLink>
             <div className="menuitems">
             <ul>
-              <li><NavLink className="navlink" to={'/home'}>Home</NavLink></li>
-              <li><NavLink className="navlink" to={'/contact'}>Contact</NavLink></li>
-              <li><NavLink className="navlink" to={'/about'}>About</NavLink></li>
+              <li><NavLink className="navlink" to={'/home'}><strong>Home</strong></NavLink></li>
+              <li><NavLink className="navlink" to={'/contact'}><strong>Contact</strong></NavLink></li>
+              <li><NavLink className="navlink" to={'/about'}><strong>About</strong></NavLink></li>
             </ul>
             </div>
             <div className={classes.grow}/>

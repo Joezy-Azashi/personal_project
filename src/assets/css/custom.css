@@ -71,19 +71,28 @@ li .navlink:hover {
   .navcontainer{
     margin: 0;
   }
+  .maincontent{
+    margin: 0 15px !important;
+  }
   .menuButton{
     display: block !important;
   }
   .menuitems{
     display: none !important;
   }
+  .profile-card{
+    width: 100% !important;
+  }
   .editprofile-card{
     width: 90% !important;
+  }
+  .menu-desktop{
+    display: none;
   }
 }
 
 /* Small devices (landscape phones, 576px and up) */
-@media screen and (max-width: 767.98px) {
+@media (min-width: 576px) and (max-width: 767.98px) {
   .navcontainer{
     margin: 0;
   }
@@ -102,6 +111,9 @@ li .navlink:hover {
   .editprofile-card{
     width: 90% !important;
   }
+  .menu-desktop{
+    display: none;
+  }
 }
 
 /* Medium devices (tablets, 768px and up) */
@@ -112,11 +124,16 @@ li .navlink:hover {
   .maincontent{
     margin: 0 15px !important;
   }
+  .menu-mobile{
+    display: none !important;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) and (max-width: 1199.98px) {
-
+@media (min-width: 992px) {
+  .menu-mobile{
+    display: none !important;
+  }
 }
 
 /* Extra large devices (large deskto */
