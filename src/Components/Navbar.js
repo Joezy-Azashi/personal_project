@@ -15,24 +15,14 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import PersonIcon from '@material-ui/icons/Person';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { logoutUser } from '../services/auth';
+import { logoutUser, isLoggedIn } from '../services/auth';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
       flexGrow: 1,
     },
-    // menuButton: {
-    //   marginRight: theme.spacing(2),
-    //   display: 'block',
-    //   [theme.breakpoints.up('sm')]: {
-    //     display: 'none',
-    //   },
-    // },
     title: {
       display: 'block',
-    //   [theme.breakpoints.up('sm')]: {
-    //     display: 'block',
-    //   },
     },
     sectionDesktop: {
       display: 'none',
@@ -46,15 +36,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'none',
       },
     },
-    toolbar: {
-        // display: "flex",
-        // alignItems: "center",
-        // justifyContent: "flex-end",
-        // padding: theme.spacing(0, 1),
-        // // necessary for content to be below app bar
-        // ...theme.mixins.toolbar,
-        height: '20px'
-      },
   }));
 
 function Navbar({page}){
@@ -237,11 +218,7 @@ function Navbar({page}){
         </AppBar>
         {renderMobileMenu}
         {renderMenu}
-
-        <main className="maincontent">
-        <div className={classes.toolbar}/>
         {page}
-      </main>
       </div>
     )
 }

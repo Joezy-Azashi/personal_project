@@ -49,7 +49,6 @@ function Editprofile({profiletopass,handleClose}) {
             location: profiletopass?.location === '' ? profiletopass?.location : location,
             description: profiletopass?.description === '' ? profiletopass?.description : description
         }
-        console.log("profiledetails", profiledetails)
         setOpen(true)
         const result = await Api().patch(`/profile/${id}`, profiledetails)
         .then((response) => {
@@ -84,7 +83,7 @@ function Editprofile({profiletopass,handleClose}) {
             <DialogTitle id="alert-dialog-title">{"Edit Profile"}</DialogTitle>
             <form onSubmit={editprofile}>
                 <div className="row justify-content-center">
-                        <img src="/images/LK.jpg"
+                        <img src={profiletopass?.pic || "none"}
                                 className="profileImage"
                                 width="100%"
                                 height="auto"

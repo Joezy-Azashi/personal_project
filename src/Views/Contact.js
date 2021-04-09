@@ -8,6 +8,7 @@ function Contact(){
             <div className="contactHeader">
                 
             </div>
+            <main className="maincontent">
             <div className="row mt-5">
                 <div className="col-md-4 mb-2 text-center">
                     <h4><a className="phoneNumber" href={`tel:${+233241614050}`}>+233 24 161 4050</a></h4>
@@ -45,6 +46,7 @@ function Contact(){
                 </iframe>
                 </div>
             </div>
+            </main>
         </div>
     )
 }

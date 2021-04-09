@@ -31,6 +31,7 @@ function Profile() {
 
     const profiledata = async () => {
         const result = await Api().get(`/profile/${id}/`)
+        console.log("result", result)
         setProfile(result.data)
         setProfiletopass(result.data)
     }
@@ -41,7 +42,8 @@ function Profile() {
 
     return(
         <div>
-            <div className="row justify-content-between">
+            <main className="maincontent">
+            <div className="row justify-content-between mt-5">
                 <div className="mb-5">
                     <h2 className="ml-3"><strong>PROFILE</strong></h2>
                 </div>
@@ -63,7 +65,7 @@ function Profile() {
             <div className="row">
                 <div className="col-md-3 col-lg-3 mb-3">
                     <div>
-                            <img src="/images/LK.jpg"
+                            <img src={profile?.pic}
                             className="profileImage"
                             width="100%"
                             height="auto"
@@ -121,6 +123,7 @@ function Profile() {
             >
                 <Editprofile profiletopass={profiletopass} handleClose={handleClose}/>
             </Dialog>
+            </main>
         </div>
     )
 }

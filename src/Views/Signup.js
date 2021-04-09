@@ -94,12 +94,10 @@ const closeAlert = () => {
 
   const handleChangepass = (prop) => (event) => {
     setPassvalue({ ...passvalue, [prop]: event.target.value });
-    console.log(passvalue)
   };
 
   const handleChangeconpass = (prop) => (event) => {
-    setConpassvalue({ ...conpassvalue, [prop]: event.target.value });
-    console.log(conpassvalue)
+    setConpassvalue({ ...conpassvalue, [prop]: event.target.value })
   };
 
   const handleMouseDownPassword = (event) => {
@@ -112,7 +110,6 @@ const closeAlert = () => {
           email,
           password: passvalue.password,
           confirm_password: conpassvalue.confirm_password}
-        console.log(signupdetails)
 
         if(passvalue.password !== conpassvalue.confirm_password){
           setAlert({
@@ -131,6 +128,7 @@ const closeAlert = () => {
         }else{
           setOpen(true)
         const signupPost = await Api().post('/signup/', signupdetails)
+        console.log("signupPost", signupPost)
         .then((response) => {
           setOpen(false)
           setAlert({
