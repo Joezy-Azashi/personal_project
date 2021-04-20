@@ -128,7 +128,6 @@ const closeAlert = () => {
         }else{
           setOpen(true)
         const signupPost = await Api().post('/signup/', signupdetails)
-        console.log("signupPost", signupPost)
         .then((response) => {
           setOpen(false)
           setAlert({

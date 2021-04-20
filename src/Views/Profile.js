@@ -31,7 +31,6 @@ function Profile() {
 
     const profiledata = async () => {
         const result = await Api().get(`/profile/${id}/`)
-        console.log("result", result)
         setProfile(result.data)
         setProfiletopass(result.data)
     }
