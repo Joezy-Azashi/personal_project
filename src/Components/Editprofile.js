@@ -18,6 +18,7 @@ function Editprofile({profiletopass,handleClose}) {
     const [Phone_number, setPhone_number] = useState()
     const [location, setLocation] = useState()
     const [description, setDescription] = useState()
+    const [pic, setPic] = useState()
     const [useData, setUseData] = useState(getCurrentUser())
 
     const id = useData.id
@@ -40,38 +41,47 @@ function Editprofile({profiletopass,handleClose}) {
         }, 4000)
       }
 
+      const fileSelectedHandler = (event) => {
+
+      }
+
+      const imageUpload = () => {
+          
+      }
+
       const editprofile = async (e) => {
-          console.log("pro", profiletopass)
           e.preventDefault()
         const profiledetails = {
             id: id,
-            username: profiletopass?.username === '' ? profiletopass?.username : username,
+            username: profiletopass?.username === '' ? profiletopass.username : username,
             Phone_number: profiletopass?.Phone_number === '' ? profiletopass?.Phone_number : Phone_number,
             location: profiletopass?.location === '' ? profiletopass?.location : location,
-            description: profiletopass?.description === '' ? profiletopass?.description : description
+            description: profiletopass?.description === '' ? profiletopass?.description : description,
+            pic: profiletopass?.pic === '' ? profiletopass?.pic : pic
         }
-        setOpen(true)
-        const result = await Api().patch(`/profile/${id}/`, profiledetails)
-        .then((response) => {
-            setOpen(false)
-            setAlert({
-                        open: true,
-                        message: 'Profile updated successfully',
-                        severity: 'success'
-                    })
-                    closeAlert()
-            setTimeout(() => {
-                window.location.assign('/profile')
-            }, 1500)
-        }).catch((error) => {
-            setOpen(false)
-            setAlert({
-                open: true,
-                message: 'Profile updated unsuccessfully, try again',
-                severity: 'error'
-                })
-            closeAlert()
-        })
+        console.log("info", profiledetails)
+        // setOpen(true)
+        // const result = await Api().patch(`/profile/${id}/`, profiledetails)
+        // .then((response) => {
+        //     setOpen(false)
+        //     setAlert({
+        //                 open: true,
+        //                 message: 'Profile updated successfully',
+        //                 severity: 'success'
+        //             })
+        //             closeAlert()
+        //     setTimeout(() => {
+        //         window.location.assign('/profile')
+        //     }, 1500)
+        // }).catch((error) => {
+        //     setOpen(false)
+        //     setAlert({
+        //         open: true,
+        //         message: 'Profile updated unsuccessfully, try again',
+        //         severity: 'error'
+        //         })
+        //     closeAlert()
+        // })
     }
 
       useEffect(() => {
@@ -84,12 +94,17 @@ function Editprofile({profiletopass,handleClose}) {
             <DialogTitle id="alert-dialog-title">{"Edit Profile"}</DialogTitle>
             <form onSubmit={editprofile}>
                 <div className="row justify-content-center">
-                        <img src={profiletopass?.pic || "none"}
-                                className="profileImage"
-                                width="100%"
-                                height="auto"
-                                alt="picture"
-                                />
+                        <img src={profiletopass?.pic}
+                            className="profileImage"
+                            width="100%"
+                            height="auto"
+                            alt="picture"
+                            />
+                        <input
+                            type="file"
+                            onChange={fileSelectedHandler}
+                            />
+                        <button onClick={imageUpload}>Upload</button>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
@@ -97,7 +112,7 @@ function Editprofile({profiletopass,handleClose}) {
                         fullWidth
                         id="outlined-multiline-static"
                         margin="normal"
-                        defaultValue={profiletopass?.username || ''}
+                        defaultValue={profiletopass?.username || username}
                         label="Username"
                         name="Username"
                         variant="outlined"
@@ -112,7 +127,7 @@ function Editprofile({profiletopass,handleClose}) {
                         fullWidth
                         id="outlined-multiline-static"
                         margin="normal"
-                        defaultValue={profiletopass?.Phone_number || ''}
+                        defaultValue={profiletopass?.Phone_number || Phone_number}
                         label="Phone Number"
                         name="Phone_Number"
                         variant="outlined"
@@ -124,7 +139,7 @@ function Editprofile({profiletopass,handleClose}) {
                         fullWidth
                         id="outlined-multiline-static"
                         margin="normal"
-                        defaultValue={profiletopass?.location || ''}
+                        defaultValue={profiletopass?.location || location}
                         label="Location"
                         name="Location"
                         variant="outlined"
@@ -138,7 +153,7 @@ function Editprofile({profiletopass,handleClose}) {
                         fullWidth
                         id="outlined-multiline-static"
                         margin="normal"
-                        defaultValue={profiletopass?.description || ''}
+                        defaultValue={profiletopass?.description || description}
                         label="Description"
                         name="Description"
                         multiline
