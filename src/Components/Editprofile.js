@@ -51,7 +51,7 @@ function Editprofile({profiletopass,handleClose}) {
             description: profiletopass?.description === '' ? profiletopass?.description : description
         }
         setOpen(true)
-        const result = await Api().patch(`/profile/${id}`, profiledetails)
+        const result = await Api().patch(`/profile/${id}/`, profiledetails)
         .then((response) => {
             setOpen(false)
             setAlert({
@@ -67,7 +67,7 @@ function Editprofile({profiletopass,handleClose}) {
             setOpen(false)
             setAlert({
                 open: true,
-                message: 'Profile updated unsuccessfully',
+                message: 'Profile updated unsuccessfully, try again',
                 severity: 'error'
                 })
             closeAlert()

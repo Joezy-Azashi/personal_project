@@ -6,6 +6,7 @@ import Editprofile from '../Components/Editprofile'
 import Dialog from '@material-ui/core/Dialog';
 import Api from '../services/Api'
 import { getCurrentUser } from '../services/auth'
+import Pageloader from '../Components/Pageloader';
 
 function Profile() {
     const [profile, setProfile] = useState()
@@ -63,6 +64,7 @@ function Profile() {
                     </Button>
                 </div>
             </div>
+
             <div className="row">
                 <div className="col-md-3 col-lg-3 mb-3">
                     <div>
@@ -74,11 +76,12 @@ function Profile() {
                             />
                     </div>
                 </div>
+
                 <div className="col-md-9 col-lg-9 mb-4">
                 <div>
                         <Card variant="outlined" className="profile-card">
                             <CardContent>
-                                <div className="row">
+                            <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group">
                                             <h3 className="bolder">{profile?.username || "Not Provided"}</h3>
