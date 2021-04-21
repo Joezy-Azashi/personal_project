@@ -41,6 +41,7 @@ function Editprofile({profiletopass,handleClose}) {
       }
 
       const editprofile = async (e) => {
+          console.log("pro", profiletopass)
           e.preventDefault()
         const profiledetails = {
             id: id,

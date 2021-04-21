@@ -73,6 +73,12 @@ function Navbar({page}){
     window.location.assign('/')
   }
 
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
+
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -175,9 +181,36 @@ function Navbar({page}){
             </NavLink>
             <div className="menuitems">
             <ul>
-              <li><NavLink className="navlink" to={'/home'}><strong>Home</strong></NavLink></li>
-              <li><NavLink className="navlink" to={'/contact'}><strong>Contact</strong></NavLink></li>
-              <li><NavLink className="navlink" to={'/about'}><strong>About</strong></NavLink></li>
+              <li>
+                <NavLink className="navlink pt-4" to={'/home'}
+                  activeStyle={{
+                    fontWeight: "bold",
+                    backgroundColor: "#384897"
+                  }}
+                >
+                  <strong>Home</strong>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="navlink pt-4" to={'/contact'}
+                  activeStyle={{
+                    fontWeight: "bold",
+                    backgroundColor: "#384897"
+                  }}
+                >
+                  <strong>Contact</strong>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="navlink pt-4" to={'/about'}
+                  activeStyle={{
+                    fontWeight: "bold",
+                    backgroundColor: "#384897"
+                  }}
+                >
+                  <strong>About</strong>
+                </NavLink>
+              </li>
             </ul>
             </div>
             <div className={classes.grow}/>

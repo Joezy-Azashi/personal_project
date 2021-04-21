@@ -28,11 +28,13 @@ function Profile() {
     })
 
     const id = useData.id
+    console.log("id",id)
 
     const profiledata = async () => {
         const result = await Api().get(`/profile/${id}/`)
-        setProfile(result.data)
-        setProfiletopass(result.data)
+        console.log("result",result)
+        setProfile(result.data.profile)
+        setProfiletopass(result.data.profile)
     }
 
     useEffect(() => {
