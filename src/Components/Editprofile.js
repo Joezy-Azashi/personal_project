@@ -12,13 +12,15 @@ import Api from '../services/Api';
 import CloseIcon from '@material-ui/icons/Close';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
+import axios from 'axios'
 
 function Editprofile({profiletopass,handleClose}) {
-    const [username, setUsername] = useState()
-    const [Phone_number, setPhone_number] = useState()
-    const [location, setLocation] = useState()
-    const [description, setDescription] = useState()
-    const [pic, setPic] = useState()
+    const [username, setUsername] = useState('')
+    const [Phone_number, setPhone_number] = useState('')
+    const [location, setLocation] = useState('')
+    const [description, setDescription] = useState('')
+    const [pic, setPic] = useState({})
+    const [uploadImage, setUploadImage] = useState()
     const [useData, setUseData] = useState(getCurrentUser())
 
     const id = useData.id
@@ -41,52 +43,43 @@ function Editprofile({profiletopass,handleClose}) {
         }, 4000)
       }
 
-      const fileSelectedHandler = (event) => {
-
-      }
-
-      const imageUpload = () => {
-          
-      }
+    //   const fileInputRef = useRef<HTMLInputElement>();
 
       const editprofile = async (e) => {
           e.preventDefault()
         const profiledetails = {
             id: id,
-            username: profiletopass?.username === '' ? profiletopass.username : username,
-            Phone_number: profiletopass?.Phone_number === '' ? profiletopass?.Phone_number : Phone_number,
-            location: profiletopass?.location === '' ? profiletopass?.location : location,
-            description: profiletopass?.description === '' ? profiletopass?.description : description,
-            pic: profiletopass?.pic === '' ? profiletopass?.pic : pic
+            username: username === '' ? profiletopass?.username : username,
+            Phone_number: Phone_number === '' ? profiletopass?.Phone_number : Phone_number,
+            location: location === '' ? profiletopass?.location : location,
+            description: description === '' ? profiletopass?.description : description,
+            pic: pic === '' ? profiletopass?.pic : pic
         }
+        setUploadImage(profiledetails.pic)
         console.log("info", profiledetails)
-        // setOpen(true)
-        // const result = await Api().patch(`/profile/${id}/`, profiledetails)
-        // .then((response) => {
-        //     setOpen(false)
-        //     setAlert({
-        //                 open: true,
-        //                 message: 'Profile updated successfully',
-        //                 severity: 'success'
-        //             })
-        //             closeAlert()
-        //     setTimeout(() => {
-        //         window.location.assign('/profile')
-        //     }, 1500)
-        // }).catch((error) => {
-        //     setOpen(false)
-        //     setAlert({
-        //         open: true,
-        //         message: 'Profile updated unsuccessfully, try again',
-        //         severity: 'error'
-        //         })
-        //     closeAlert()
-        // })
+        setOpen(true)
+        const result = await Api().patch(`/profile/${id}/`, profiledetails)
+        .then((response) => {
+            setOpen(false)
+            setAlert({
+                        open: true,
+                        message: 'Profile updated successfully',
+                        severity: 'success'
+                    })
+                    closeAlert()
+            setTimeout(() => {
+                window.location.assign('/profile')
+            }, 1500)
+        }).catch((error) => {
+            setOpen(false)
+            setAlert({
+                open: true,
+                message: 'Profile updated unsuccessfully, try again',
+                severity: 'error'
+                })
+            closeAlert()
+        })
     }
-
-      useEffect(() => {
-        console.log("DATA FOR PROFILE",profiletopass )
-      }, [])
 
     return (
         <div>
@@ -100,11 +93,12 @@ function Editprofile({profiletopass,handleClose}) {
                             height="auto"
                             alt="picture"
                             />
-                        <input
+                        {/* <input
+                            accept="image/x-png,image/gif,image/jpeg"
                             type="file"
-                            onChange={fileSelectedHandler}
-                            />
-                        <button onClick={imageUpload}>Upload</button>
+                            ref={fileInputRef}
+                            onChange={(e) => setPic(e.target.files[0])}
+                            /> */}
                 </div>
                 <div className="row">
                     <div className="col-md-12">

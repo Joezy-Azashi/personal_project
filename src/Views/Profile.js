@@ -29,7 +29,6 @@ function Profile() {
     })
 
     const id = useData.id
-    console.log("id",id)
 
     const profiledata = async () => {
         const result = await Api().get(`/profile/${id}/`)
