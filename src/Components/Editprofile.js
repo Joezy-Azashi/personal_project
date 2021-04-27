@@ -42,8 +42,11 @@ function Editprofile({profiletopass,handleClose}) {
             })
         }, 4000)
       }
-
-    //   const fileInputRef = useRef<HTMLInputElement>();
+      
+      const handleImg = (event) => {
+        setUploadImage({uploadImage: event.target.files[0]});
+        console.log("upload", uploadImage)
+      }
 
       const editprofile = async (e) => {
           e.preventDefault()
@@ -53,32 +56,33 @@ function Editprofile({profiletopass,handleClose}) {
             Phone_number: Phone_number === '' ? profiletopass?.Phone_number : Phone_number,
             location: location === '' ? profiletopass?.location : location,
             description: description === '' ? profiletopass?.description : description,
-            pic: pic === '' ? profiletopass?.pic : pic
+            pic: pic === '' ? profiletopass?.pic : uploadImage.uploadImage
         }
-        setUploadImage(profiledetails.pic)
+     
         console.log("info", profiledetails)
-        setOpen(true)
-        const result = await Api().patch(`/profile/${id}/`, profiledetails)
-        .then((response) => {
-            setOpen(false)
-            setAlert({
-                        open: true,
-                        message: 'Profile updated successfully',
-                        severity: 'success'
-                    })
-                    closeAlert()
-            setTimeout(() => {
-                window.location.assign('/profile')
-            }, 1500)
-        }).catch((error) => {
-            setOpen(false)
-            setAlert({
-                open: true,
-                message: 'Profile updated unsuccessfully, try again',
-                severity: 'error'
-                })
-            closeAlert()
-        })
+        // setOpen(true)
+        // const result = await Api().put(`/profile/${id}/`, profiledetails)
+        // .then((response) => {
+        //     console.log("response", response.data.profile)
+        //     setOpen(false)
+        //     setAlert({
+        //                 open: true,
+        //                 message: 'Profile updated successfully',
+        //                 severity: 'success'
+        //             })
+        //             closeAlert()
+        //     setTimeout(() => {
+        //         window.location.assign('/profile')
+        //     }, 1500)
+        // }).catch((error) => {
+        //     setOpen(false)
+        //     setAlert({
+        //         open: true,
+        //         message: 'Profile updated unsuccessfully, try again',
+        //         severity: 'error'
+        //         })
+        //     closeAlert()
+        // })
     }
 
     return (
@@ -93,13 +97,18 @@ function Editprofile({profiletopass,handleClose}) {
                             height="auto"
                             alt="picture"
                             />
-                        {/* <input
+                        
+                        <input
+                            // ref="file"
                             accept="image/x-png,image/gif,image/jpeg"
                             type="file"
-                            ref={fileInputRef}
-                            onChange={(e) => setPic(e.target.files[0])}
-                            /> */}
+                            onChange={handleImg}
+                            />
                 </div>
+                {uploadImage &&
+                [uploadImage].map(file => {
+                    return <img src={URL.createObjectURL(file.uploadImage)} />;
+                })}
                 <div className="row">
                     <div className="col-md-12">
                     <TextField
