@@ -60,29 +60,29 @@ function Editprofile({profiletopass,handleClose}) {
         }
      
         console.log("info", profiledetails)
-        // setOpen(true)
-        // const result = await Api().put(`/profile/${id}/`, profiledetails)
-        // .then((response) => {
-        //     console.log("response", response.data.profile)
-        //     setOpen(false)
-        //     setAlert({
-        //                 open: true,
-        //                 message: 'Profile updated successfully',
-        //                 severity: 'success'
-        //             })
-        //             closeAlert()
-        //     setTimeout(() => {
-        //         window.location.assign('/profile')
-        //     }, 1500)
-        // }).catch((error) => {
-        //     setOpen(false)
-        //     setAlert({
-        //         open: true,
-        //         message: 'Profile updated unsuccessfully, try again',
-        //         severity: 'error'
-        //         })
-        //     closeAlert()
-        // })
+        setOpen(true)
+        const result = await Api().put(`/profile/${id}/`, profiledetails)
+        .then((response) => {
+            console.log("response", response.data.profile)
+            setOpen(false)
+            setAlert({
+                        open: true,
+                        message: 'Profile updated successfully',
+                        severity: 'success'
+                    })
+                    closeAlert()
+            setTimeout(() => {
+                window.location.assign('/profile')
+            }, 1500)
+        }).catch((error) => {
+            setOpen(false)
+            setAlert({
+                open: true,
+                message: 'Profile updated unsuccessfully, try again',
+                severity: 'error'
+                })
+            closeAlert()
+        })
     }
 
     return (
@@ -91,24 +91,30 @@ function Editprofile({profiletopass,handleClose}) {
             <DialogTitle id="alert-dialog-title">{"Edit Profile"}</DialogTitle>
             <form onSubmit={editprofile}>
                 <div className="row justify-content-center">
-                        <img src={profiletopass?.pic}
+                    {uploadImage &&
+                    [uploadImage].map(file => {
+                        return <img src={URL.createObjectURL(file.uploadImage)}
                             className="profileImage"
                             width="100%"
                             height="auto"
                             alt="picture"
-                            />
-                        
-                        <input
-                            // ref="file"
-                            accept="image/x-png,image/gif,image/jpeg"
-                            type="file"
-                            onChange={handleImg}
-                            />
+                            />;
+                    }) ||
+                    <img src={profiletopass?.pic}
+                        className="profileImage"
+                        width="100%"
+                        height="auto"
+                        alt="picture"
+                        />
+                    }
                 </div>
-                {uploadImage &&
-                [uploadImage].map(file => {
-                    return <img src={URL.createObjectURL(file.uploadImage)} />;
-                })}
+                <div className="fullscreen table-cell valign-middle text-center mt-3 mb-3">
+                <input
+                        accept="image/x-png,image/gif,image/jpeg"
+                        type="file"
+                        onChange={handleImg}
+                        />
+                </div>
                 <div className="row">
                     <div className="col-md-12">
                     <TextField

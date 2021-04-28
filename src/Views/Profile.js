@@ -76,7 +76,7 @@ function Profile() {
                     </div>
                 </div>
 
-                <div className="col-md-9 col-lg-9 mb-4">
+                <div className="col-md-9 col-lg-9 mb-4 justify-content-center">
                 <div>
                         <Card variant="outlined" className="profile-card">
                             <CardContent>
