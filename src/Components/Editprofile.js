@@ -12,7 +12,7 @@ import Api from '../services/Api';
 import CloseIcon from '@material-ui/icons/Close';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import axios from 'axios'
+import EditIcon from '@material-ui/icons/Edit';
 
 function Editprofile({profiletopass,handleClose}) {
     const [username, setUsername] = useState('')
@@ -45,7 +45,6 @@ function Editprofile({profiletopass,handleClose}) {
       
       const handleImg = (event) => {
         setUploadImage({uploadImage: event.target.files[0]});
-        console.log("upload", uploadImage)
       }
 
       const editprofile = async (e) => {
@@ -56,7 +55,7 @@ function Editprofile({profiletopass,handleClose}) {
             Phone_number: Phone_number === '' ? profiletopass?.Phone_number : Phone_number,
             location: location === '' ? profiletopass?.location : location,
             description: description === '' ? profiletopass?.description : description,
-            pic: pic === '' ? profiletopass?.pic : uploadImage.uploadImage
+            // pic: pic === '' ? profiletopass?.pic : uploadImage.uploadImage
         }
      
         console.log("info", profiledetails)
@@ -93,14 +92,17 @@ function Editprofile({profiletopass,handleClose}) {
                 <div className="row justify-content-center">
                     {uploadImage &&
                     [uploadImage].map(file => {
-                        return <img src={URL.createObjectURL(file.uploadImage)}
+                        console.log("file", file)
+                        return( 
+                        <img src={URL.createObjectURL(file.uploadImage)}
                             className="profileImage"
                             width="100%"
                             height="auto"
                             alt="picture"
-                            />;
+                            />
+                            )
                     }) ||
-                    <img src={profiletopass?.pic}
+                    <img src={profiletopass?.pic ? profiletopass?.pic : "images/profile.png"}
                         className="profileImage"
                         width="100%"
                         height="auto"
@@ -108,12 +110,15 @@ function Editprofile({profiletopass,handleClose}) {
                         />
                     }
                 </div>
-                <div className="fullscreen table-cell valign-middle text-center mt-3 mb-3">
-                <input
-                        accept="image/x-png,image/gif,image/jpeg"
-                        type="file"
-                        onChange={handleImg}
-                        />
+                <div className="row justify-content-center file-input mt-3">
+                    <input
+                            id="file"
+                            className="file"
+                            accept="image/x-png,image/gif,image/jpeg"
+                            type="file"
+                            onChange={handleImg}
+                            />
+                    <label for="file">Edit Image <EditIcon className="ml-2"/></label>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
