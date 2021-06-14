@@ -22,6 +22,14 @@ function Editprofile({profiletopass,handleClose}) {
     const [pic, setPic] = useState({})
     const [uploadImage, setUploadImage] = useState()
     const [useData, setUseData] = useState(getCurrentUser())
+    const option = {
+        compressedLink:
+        "https://testersdock.com/wp-content/uploads/2017/09/file-upload-1280x640.png",
+      originalImage: "",
+      originalLink: "",
+      clicked: false,
+      uploadImage: false
+    }
 
     const id = useData.id
 
@@ -43,12 +51,19 @@ function Editprofile({profiletopass,handleClose}) {
         }, 4000)
       }
       
-      const handleImg = (event) => {
-        setUploadImage({uploadImage: event.target.files[0]});
-      }
+    //   const handleImg = (event) => {
+    //     setUploadImage({uploadImage: event.target.files[0]});
+    //     const setOption = {
+    //         originalLink: URL.createObjectURL(uploadImage),
+    // //   originalImage: imageFile,
+    // //   outputFileName: imageFile.name,
+    //   uploadImage: true
+    //     }
+    //   }
 
       const editprofile = async (e) => {
           e.preventDefault()
+
         const profiledetails = {
             id: id,
             username: username === '' ? profiletopass?.username : username,
@@ -116,7 +131,6 @@ function Editprofile({profiletopass,handleClose}) {
                             className="file"
                             accept="image/x-png,image/gif,image/jpeg"
                             type="file"
-                            onChange={handleImg}
                             />
                     <label for="file">Edit Image <EditIcon className="ml-2"/></label>
                 </div>

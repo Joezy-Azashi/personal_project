@@ -5,6 +5,7 @@ import { isLoggedIn } from './services/auth'
 import Signup from '../src/Views/Signup'
 import Login from '../src/Views/Login'
 import Forgotpassword from '../src/Views/Forgotpassword'
+import SetNewPassword from '../src/Views/SetNewPassword'
 import SignupCheckemail from '../src/Views/SignupCheckemail'
 import Profile from '../src/Views/Profile'
 import Home from '../src/Views/Home'
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path={"/forgotpassword"}>
             <Forgotpassword/>
+          </Route>
+          <Route path={"/setnewpassword"}>
+            <SetNewPassword/>
           </Route>
           <PrivateRoute path={'/home'}>
             <Layout page={<Home/>}/>

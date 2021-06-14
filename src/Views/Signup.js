@@ -76,6 +76,7 @@ const closeAlert = () => {
 }
 
   const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [passvalue, setPassvalue] = useState({
     password: '',
     showPassword: false
@@ -108,6 +109,7 @@ const closeAlert = () => {
         e.preventDefault()
         const signupdetails = {
           email,
+          username,
           password: passvalue.password,
           confirm_password: conpassvalue.confirm_password}
 
@@ -141,7 +143,6 @@ const closeAlert = () => {
             
         })
         .catch((error) => {
-          console.log("test",error.message)
           setOpen(false)
           if(error.message === "Request failed with status code 400"){
             setAlert({
@@ -205,6 +206,20 @@ const closeAlert = () => {
                     </Collapse>
                 </div>
         <form className={classes.form} onSubmit={sign} noValidate>
+        <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            value={username}
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            onChange={(e) => {setUsername(e.target.value)}}
+          />
+
           <TextField
             variant="outlined"
             margin="normal"
