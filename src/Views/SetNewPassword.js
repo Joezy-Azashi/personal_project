@@ -101,17 +101,14 @@ function SetNewPassword() {
         event.preventDefault();
       };
 
-      let location = useLocation()
-      const queryid = queryString.parse(location.search)
-
-      useEffect(() => {
-        console.log("grrr", queryid)
-      },[])
+      let url = window.location.href.split('/')
 
       const newpasswordset = async (e) => {
         e.preventDefault()
         const newpassdetails={
-            password: passvalue.password
+            password: passvalue.password,
+            uidb64: url[4],
+            token: url[5]
         }
         if (passvalue.password === '' || conpassvalue.confirm_password === ''){
             setAlert({
@@ -128,8 +125,9 @@ function SetNewPassword() {
             })
               closeAlert()
         } else {
+          console.log("nice", newpassdetails)
             setOpen(true)
-            const newpasspost = await Api().post('/password-reset-complete/', newpassdetails)
+            const newpasspost = await Api().patch('/password-reset-complete/', newpassdetails)
             .then((response) => {
                 setOpen(false)
                 setAlert({

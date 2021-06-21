@@ -67,7 +67,7 @@ function Forgotpassword(){
       e.preventDefault()
       const forgotdetails = {
         email,
-        url: `${window.location.protocol}//${window.location.host}/setnewpassword`
+        url: `${window.location.protocol}//${window.location.host}/setnewpassword/`
       }
         setOpen(true)
         if ((validEmail(email)) !== true) 
