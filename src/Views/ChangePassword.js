@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function SetNewPassword() {
+function ChangePassword() {
+
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);
@@ -71,89 +72,51 @@ function SetNewPassword() {
         setOpen(false);
       };
 
-    const [passvalue, setPassvalue] = useState({
-        password: '',
+      const [currentpassvalue, setCurrentpassvalue] = useState({
+        current_password: '',
         showPassword: false
       })
-      const[conpassvalue, setConpassvalue] = useState({
+    
+      const [newpassvalue, setNewpassvalue] = useState({
+        new_password: '',
+        showPassword: false
+      })
+      const[confirmpassvalue, setConfirmpassvalue] = useState({
         confirm_password: '',
         showPassword: false
       })
     
       const handleClickShowPassword1 = () => {
-        setPassvalue({ ...passvalue, showPassword: !passvalue.showPassword });
+        setCurrentpassvalue({ ...currentpassvalue, showPassword: !currentpassvalue.showPassword });
       };
+      
       const handleClickShowPassword2 = () => {
-        setConpassvalue({ ...conpassvalue, showPassword: !conpassvalue.showPassword });
+        setNewpassvalue({ ...newpassvalue, showPassword: !newpassvalue.showPassword });
+      };
+      const handleClickShowPassword3 = () => {
+        setConfirmpassvalue({ ...confirmpassvalue, showPassword: !confirmpassvalue.showPassword });
       };
     
-      const handleChangepass = (prop) => (event) => {
-        setPassvalue({ ...passvalue, [prop]: event.target.value });
+      const handleChangecurrentpass = (prop) => (event) => {
+        setCurrentpassvalue({ ...currentpassvalue, [prop]: event.target.value });
+      };
+
+      const handleChangenewpass = (prop) => (event) => {
+        setNewpassvalue({ ...newpassvalue, [prop]: event.target.value });
       };
     
-      const handleChangeconpass = (prop) => (event) => {
-        setConpassvalue({ ...conpassvalue, [prop]: event.target.value })
+      const handleChangeconfrimpass = (prop) => (event) => {
+        setConfirmpassvalue({ ...currentpassvalue, [prop]: event.target.value })
       };
     
       const handleMouseDownPassword = (event) => {
         event.preventDefault();
       };
 
-      let url = window.location.href.split('/')
+    const changepassword = ((e) => {
+        e.preventDefault();
 
-      const newpasswordset = async (e) => {
-        e.preventDefault()
-        const newpassdetails={
-            password: passvalue.password,
-            uidb64: url[4],
-            token: url[5]
-        }
-        if (passvalue.password === '' || conpassvalue.confirm_password === ''){
-            setAlert({
-                open: true,
-                message: 'Fields cannot be empty',
-                severity: 'error'
-            })
-              closeAlert()
-        } else if(passvalue.password != conpassvalue.confirm_password){
-            setAlert({
-                open: true,
-                message: 'Password Mismatch, try again',
-                severity: 'error'
-            })
-              closeAlert()
-        } else {
-          console.log("nice", newpassdetails)
-            setOpen(true)
-            const newpasspost = await Api().patch('/password-reset-complete/', newpassdetails)
-            .then((response) => {
-                setOpen(false)
-                setAlert({
-                    open: true,
-                    message: 'New password set successfully',
-                    severity: 'success'
-                })
-                  closeAlert()
-
-                  setTimeout(() => {
-                    window.location.assign('/')
-                  },1000)
-            })
-            .catch((error) => {
-                console.log("fer", error.message)
-                setOpen(false)
-                if(error.message === "Request failed with status code 405"){
-                    setAlert({
-                      open: true,
-                      message: 'Error in setting new password',
-                      severity: 'error'
-                  })
-                  closeAlert()
-                  }
-            })
-        }
-        
-      }
+    })
 
     return (
         <Container component="main" maxWidth="xs">
@@ -163,7 +126,7 @@ function SetNewPassword() {
           <RotateLeftIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Set New Password
+          Change Password
         </Typography>
         <div>
                     <Collapse in={alert.open}>
@@ -190,14 +153,14 @@ function SetNewPassword() {
                     </Alert>
                     </Collapse>
                 </div>
-        <form className={classes.form} onSubmit={newpasswordset} noValidate>
+        <form className={classes.form} onSubmit={changepassword} noValidate>
         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined" fullWidth>
-          <InputLabel htmlFor="outlined-adornment-password">New Password</InputLabel>
+          <InputLabel htmlFor="outlined-adornment-password">Current Password</InputLabel>
             <OutlinedInput
-              id="outlined-adornment-password"
-              type={passvalue.showPassword ? 'text' : 'password'}
-              value={passvalue.password}
-              onChange={handleChangepass('password')}
+              id="current_password"
+              type={currentpassvalue.showPassword ? 'text' : 'password'}
+              value={currentpassvalue.current_password}
+              onChange={handleChangecurrentpass('current_password')}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -206,7 +169,30 @@ function SetNewPassword() {
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
-                    {passvalue.showPassword ? <Visibility /> : <VisibilityOff />}
+                    {currentpassvalue.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              labelWidth={136}
+            />
+            </FormControl>
+
+        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined" fullWidth>
+          <InputLabel htmlFor="outlined-adornment-password">New Password</InputLabel>
+            <OutlinedInput
+              id="new_password"
+              type={newpassvalue.showPassword ? 'text' : 'password'}
+              value={newpassvalue.new_password}
+              onChange={handleChangenewpass('new_password')}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword2}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {newpassvalue.showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               }
@@ -217,19 +203,19 @@ function SetNewPassword() {
             <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined" fullWidth>
           <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
             <OutlinedInput
-              id="outlined-adornment-confirm-password"
-              type={conpassvalue.showPassword ? 'text' : 'password'}
-              value={conpassvalue.confirm_password}
-              onChange={handleChangeconpass('confirm_password')}
+              id="confirm_password"
+              type={confirmpassvalue.showPassword ? 'text' : 'password'}
+              value={confirmpassvalue.confirm_password}
+              onChange={handleChangeconfrimpass('confirm_password')}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword2}
+                    onClick={handleClickShowPassword3}
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
-                    {conpassvalue.showPassword ? <Visibility /> : <VisibilityOff />}
+                    {confirmpassvalue.showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               }
@@ -262,4 +248,4 @@ function SetNewPassword() {
     )
 }
 
-export default SetNewPassword
+export default ChangePassword

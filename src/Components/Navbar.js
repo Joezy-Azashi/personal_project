@@ -95,11 +95,20 @@ function Navbar({page}){
       onClose={handleMenuClose}
     >
         <div className="menu-desktop">
-          <NavLink to={'/profile'} style={{textDecoration: "none", color: "inherit"}}>
-            <MenuItem onClick={handleMenuClose}> Profile</MenuItem>
-          </NavLink>
+            <div>
+              <NavLink to={'/profile'} style={{textDecoration: "none", color: "inherit"}}>
+                <MenuItem onClick={handleMenuClose}> Profile</MenuItem>
+              </NavLink>
+            </div>
+            <div>
+              <NavLink to={'/changepassword'} style={{textDecoration: "none", color: "inherit"}}>
+                <MenuItem onClick={handleMenuClose}> Change Password</MenuItem>
+              </NavLink>
+            </div>
           
-            <MenuItem onClick={logUserOut}>Logout</MenuItem>
+            <div>
+              <MenuItem onClick={logUserOut}>Logout</MenuItem>
+            </div>
         </div>
         <div className="menu-mobile">
           <NavLink to={'/home'} style={{textDecoration: "none", color: "inherit"}}>

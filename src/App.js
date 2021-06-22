@@ -5,8 +5,10 @@ import { isLoggedIn } from './services/auth'
 import Signup from '../src/Views/Signup'
 import Login from '../src/Views/Login'
 import Forgotpassword from '../src/Views/Forgotpassword'
+import ChangePassword from '../src/Views/ChangePassword'
 import SetNewPassword from '../src/Views/SetNewPassword'
 import SignupCheckemail from '../src/Views/SignupCheckemail'
+import SignupSuccess from '../src/Views/SignupSuccess'
 import Profile from '../src/Views/Profile'
 import Home from '../src/Views/Home'
 import Contact from '../src/Views/Contact'
@@ -28,8 +30,14 @@ function App() {
           <Route path={'/check-email'}>
             <SignupCheckemail/>
           </Route>
+          <Route path={'/signupsuccess'}>
+            <SignupSuccess/>
+          </Route>
           <Route path={"/forgotpassword"}>
             <Forgotpassword/>
+          </Route>
+          <Route path={"/changepassword"}>
+            <ChangePassword/>
           </Route>
           <Route path={"/setnewpassword"}>
             <SetNewPassword/>

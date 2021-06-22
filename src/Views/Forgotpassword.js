@@ -13,6 +13,8 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Api from '../services/Api';
 import { validEmail } from '../services/validation'
+import Dialog from '@material-ui/core/Dialog';
+import Pageloader from '../Components/Pageloader';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -40,14 +42,13 @@ const useStyles = makeStyles((theme) => ({
 function Forgotpassword(){
     const classes = useStyles();
 
+    const [open, setOpen] = React.useState(false);
     const[email, setEmail] = useState('')
     const [alert, setAlert] = useState({
       open: false,
       message: '',
       severity: 'success'
   })
-
-  const [open, setOpen] = React.useState(false);
   
     const handleClose = () => {
       setOpen(false);
@@ -87,9 +88,9 @@ function Forgotpassword(){
           severity: 'success'
       })
       closeAlert()
-      setTimeout(() => {
-        window.location.assign('/')
-      }, 3000)
+      // setTimeout(() => {
+      //   window.location.assign('/')
+      // }, 3000)
       }).catch((error) => {
 
       })
@@ -156,6 +157,17 @@ function Forgotpassword(){
           </Button>
           </form>
           </div>
+          <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        maxWidth="xs"
+        fullWidth
+        disableBackdropClick
+      >
+        <Pageloader/>
+      </Dialog>
         </Container>
     )
 }

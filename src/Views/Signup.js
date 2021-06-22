@@ -110,6 +110,7 @@ const closeAlert = () => {
         const signupdetails = {
           email,
           username,
+          url: `${window.location.protocol}//${window.location.host}/signupsuccess/`,
           password: passvalue.password,
           confirm_password: conpassvalue.confirm_password}
 
@@ -154,7 +155,7 @@ const closeAlert = () => {
           }else if(error.message === "Network Error"){
             setAlert({
               open: true,
-              message: 'OOPS! please check your internet connection',
+              message: 'Network Error',
               severity: 'error'
           })
           closeAlert()
