@@ -4,7 +4,7 @@ import * as Cookies from 'js-cookie'
 export default () => {
     const authToken = Cookies.get('authToken')
     return axios.create({
-        baseURL: 'http://charlez.herokuapp.com',
+        baseURL: 'https://charlez.herokuapp.com',
         withCredentials: false,
         headers: {
             Accept: 'application/json',
