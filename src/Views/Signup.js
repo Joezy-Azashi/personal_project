@@ -110,7 +110,7 @@ const closeAlert = () => {
         const signupdetails = {
           email,
           username,
-          url: `${window.location.protocol}//${window.location.host}/signupsuccess/`,
+          // url: `${window.location.protocol}//${window.location.host}/signupsuccess/`,
           password: passvalue.password,
           confirm_password: conpassvalue.confirm_password}
 
