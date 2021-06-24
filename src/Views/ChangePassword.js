@@ -20,6 +20,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Api from '../services/Api';
 import Pageloader from '../Components/Pageloader';
 import Dialog from '@material-ui/core/Dialog';
+import { logoutUser, isLoggedIn } from '../services/auth';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -113,10 +114,67 @@ function ChangePassword() {
         event.preventDefault();
       };
 
-    const changepassword = ((e) => {
-        e.preventDefault();
+      const logUserOut = () => {
+        logoutUser()
+        window.location.assign('/')
+      }
 
-    })
+    const changepassword = async (e) => {
+        e.preventDefault();
+      const changepassdetails = {
+        old_password: currentpassvalue.current_password,
+        new_password: newpassvalue.new_password
+      }
+      
+      if(currentpassvalue.current_password === "" || newpassvalue.new_password === "" || confirmpassvalue.confirm_password ===""){
+        setAlert({
+          open: true,
+          message: 'Fields cannot be empty',
+          severity: 'error'
+      })
+        closeAlert()
+      } else if(currentpassvalue.current_password === newpassvalue.new_password){
+        setAlert({
+          open: true,
+          message: 'Current and New password cannot be the same',
+          severity: 'error'
+      })
+        closeAlert()
+      } else if (newpassvalue.new_password != confirmpassvalue.confirm_password) {
+        setAlert({
+          open: true,
+          message: 'New and confirm password mismatch, try again',
+          severity: 'error'
+      })
+        closeAlert()
+      }else{
+        setOpen(true)
+        const changepassPost = await Api().patch('/change_password/', changepassdetails)
+      .then((response) => {
+        setOpen(false)
+        setAlert({
+          open: true,
+          message: 'Password changed successfully',
+          severity: 'success'
+      })
+        closeAlert()
+
+        setTimeout(() => {
+          logUserOut()
+        },1000)
+
+      })
+      .catch((error) => {
+        setOpen(false)
+        setAlert({
+          open: true,
+          message: 'Error in changing password, try again',
+          severity: 'error'
+      })
+        closeAlert()
+      })
+      }
+    }
 
     return (
         <Container component="main" maxWidth="xs">

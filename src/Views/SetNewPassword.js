@@ -123,7 +123,6 @@ function SetNewPassword() {
             })
               closeAlert()
         } else {
-          console.log("nice", newpassdetails)
             setOpen(true)
             const newpasspost = await Api().patch('/password-reset-complete/', newpassdetails)
             .then((response) => {
@@ -140,7 +139,6 @@ function SetNewPassword() {
                   },1000)
             })
             .catch((error) => {
-                console.log("fer", error.message)
                 setOpen(false)
                 if(error.message === "Request failed with status code 405"){
                     setAlert({
