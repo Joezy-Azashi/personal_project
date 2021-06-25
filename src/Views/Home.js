@@ -43,35 +43,12 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <form>
-        <div className="FileUpload">
-            <Dropzone
-                onDrop={this.onImageDrop.bind(this)}
-                accept="image/*"
-                multiple={true}>
-                    {({getRootProps, getInputProps}) => {
-                    return (
-                        <div
-                        {...getRootProps()}
-                        >
-                        <input {...getInputProps()} />
-                        {
-                        <p>Try dropping some files here, or click to select files to upload.</p>
-                        }
-                        </div>
-                    )
-                }}
-            </Dropzone>
-        </div>
-
-        <div>
-          {this.state.uploadedFileCloudinaryUrl === '' ? null :
-          <div>
-            <p>{this.state.uploadedFile.name}</p>
-            <img src={this.state.uploadedFileCloudinaryUrl} />
-          </div>}
-        </div>
-      </form>
+      <div>
+        <input type="text" spellCheck="true"/>
+        <a href="twitter://user?screen_name=imac2">ftbdfbszdfbzd</a>
+        <label for="imageFile">Upload a photo of yourself:</label>
+	<input type="file" id="imageFile" capture="user" accept="image/*"/>
+      </div>
     )
   }
 }
