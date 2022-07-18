@@ -93,21 +93,22 @@ function Navbar({page}){
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      className="d-flex"
     >
         <div className="menu-desktop">
             <div>
               <NavLink to={'/profile'} style={{textDecoration: "none", color: "inherit"}}>
-                <MenuItem onClick={handleMenuClose}> Profile</MenuItem>
+                <MenuItem onClick={handleMenuClose} className="w-100"> Profile</MenuItem>
               </NavLink>
             </div>
             <div>
               <NavLink to={'/changepassword'} style={{textDecoration: "none", color: "inherit"}}>
-                <MenuItem onClick={handleMenuClose}> Change Password</MenuItem>
+                <MenuItem onClick={handleMenuClose} className="w-100"> Change Password</MenuItem>
               </NavLink>
             </div>
           
             <div>
-              <MenuItem onClick={logUserOut}>Logout</MenuItem>
+              <MenuItem onClick={logUserOut} className="w-100">Logout</MenuItem>
             </div>
         </div>
         <div className="menu-mobile">
@@ -185,7 +186,7 @@ function Navbar({page}){
             </IconButton>
             <NavLink className="logobrand" to='/home'>
             <Typography className={classes.title} variant="h6" noWrap>
-              <strong>AZASHI</strong>
+              <strong>DIG</strong>
             </Typography>
             </NavLink>
             <div className="menuitems">

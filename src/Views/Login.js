@@ -124,7 +124,6 @@ function Login(){
           }, 1000)
             
         }).catch((error) => {
-          console.log("ttt", error.message)
           setOpen(false)
           if(error.message === "Request failed with status code 401"){
             setAlert({

@@ -23,8 +23,13 @@
 .menuitems{
   margin-left: 5%;
 }
+
+.makeStyles-paper-1{
+  
+}
 .profileImage{
   border-radius: 20px;
+  width: 50%;
 }
 .menu-desktop{
   
@@ -88,6 +93,11 @@ input:hover + label,
 input:focus + label {
   transform: scale(1.02);
 }
+
+/* .navThings li{
+  background: red;
+  width: 100%;
+} */
 
 ul {
   list-style-type: none;

@@ -73,11 +73,9 @@ function Editprofile({profiletopass,handleClose}) {
             // pic: pic === '' ? profiletopass?.pic : uploadImage.uploadImage
         }
      
-        console.log("info", profiledetails)
         setOpen(true)
         const result = await Api().put(`/profile/${id}/`, profiledetails)
         .then((response) => {
-            console.log("response", response.data.profile)
             setOpen(false)
             setAlert({
                         open: true,
@@ -107,7 +105,6 @@ function Editprofile({profiletopass,handleClose}) {
                 <div className="row justify-content-center">
                     {uploadImage &&
                     [uploadImage].map(file => {
-                        console.log("file", file)
                         return( 
                         <img src={URL.createObjectURL(file.uploadImage)}
                             className="profileImage"
@@ -223,7 +220,7 @@ function Editprofile({profiletopass,handleClose}) {
                 <Button type="submit" color="primary">
                     <strong>Save</strong>
                 </Button>
-                <Button onClick={handleClose} color="primary" autoFocus>
+                <Button onClick={handleClose} style={{color: "#FFFFFF", backgroundColor: "#3f51b5"}} autoFocus>
                     <strong>Cancel</strong>
                 </Button>
             </DialogActions>
