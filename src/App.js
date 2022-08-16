@@ -1,6 +1,6 @@
 import './assets/css/custom.css';
 import { BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
-import React, {createContext, useContext, useEffect, useState} from "react";
+import React, {createContext, useContext} from "react";
 import { isLoggedIn } from './services/auth'
 import Signup from '../src/Views/Signup'
 import Login from '../src/Views/Login'
@@ -14,12 +14,16 @@ import Home from '../src/Views/Home'
 import Contact from '../src/Views/Contact'
 import About from '../src/Views/About'
 import Layout from './Components/Layout';
+import Test from './Views/Test';
 
 function App() {
   return (
     <div className="App">
       <ProvideAuth>
       <BrowserRouter>
+      <Route path={'/test'}>
+        <Test/>
+      </Route>
         <Switch>
           <LoginRoute exact={true} path={"/"}>
             <Login/>
